@@ -5,7 +5,8 @@
     <WarnOn>3390;$(WarnOn)</WarnOn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Customer.fs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Program.fs" />
   </ItemGroup>
 </Project>

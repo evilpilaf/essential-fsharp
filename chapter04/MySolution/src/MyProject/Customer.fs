@@ -1,5 +1,3 @@
-
-
 namespace MyProject
 
 type Customer =
@@ -71,6 +69,3 @@ module Domain =
         |> Db.tryGetCustomer
         |> Result.bind (tryCreateCustomer customerId)
         |> Result.bind Db.saveCustomer
-
-module Fred.Types
-    let a =()
