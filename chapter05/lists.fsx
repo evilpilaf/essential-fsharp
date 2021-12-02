@@ -8,17 +8,17 @@ let readList items =
     match items with
     | [] -> "Empty List"
     | [ head ] -> $"Head: {head}"
-    | head :: tail -> sprintf "Head: %A and Tail: %A" head tail
+    | head :: tail -> $"Head: %A{head} and Tail: %A{tail}"
 
 let emptyList = readList []
 let multipleList = readList extendedItems
 let singleItemList = readList [ 1 ]
 
-
 let myList = [ 1 .. 9 ]
 
 let getEvens items =
-    items |> List.filter (fun x -> x % 2 = 0)
+    items
+    |> List.filter (fun x -> x % 2 = 0)
 
 let evens = getEvens myList // [2;4;6;8]
 
@@ -27,7 +27,9 @@ let sum (items: int list) = items |> List.sum
 
 let mySum = sum myList
 
-let triple items = items |> List.map (fun x -> x * 3)
+let triple items =
+    items
+    |> List.map (fun x -> x * 3)
 
 let myTriples = triple myList
 

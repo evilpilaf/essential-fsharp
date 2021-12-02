@@ -1,6 +1,7 @@
 ﻿open System
 open System.IO
 open System.Text.RegularExpressions
+open FsToolkit.ErrorHandling.ValidationCE
 
 type Customer =
     { CustomerId: string
@@ -114,41 +115,35 @@ let validateDiscount discount =
     | IsDecimal value -> Ok(Some value)
     | _ -> Error(InvalidData("Discount", discount))
 
-
 let validate (input: Customer) : Result<ValidatedCustomer, ValidationError list> =
-    let customerId = input.CustomerId |> validateCustomerId
-    let email = input.Email |> validateEmail
-    let isEligible = input.IsEligible |> validateIsEligible
+    validation {
+        let! customerId =
+            input.CustomerId
+            |> validateCustomerId
+            |> Result.mapError (fun ex -> [ ex ])
+        and! email =
+            input.Email
+            |> validateEmail
+            |> Result.mapError (fun ex -> [ ex ])
+        and! isEligible =
+            input.IsEligible
+            |> validateIsEligible
+            |> Result.mapError (fun ex -> [ ex ])
+        and! isRegistered =
+            input.IsRegistered
+            |> validateIsRegistered
+            |> Result.mapError (fun ex -> [ ex ])
+        and! dateRegistered =
+            input.DateRegistered
+            |> validateDateRegistered
+            |> Result.mapError (fun ex -> [ ex ])
+        and! discount =
+            input.Discount
+            |> validateDiscount
+            |> Result.mapError (fun ex -> [ ex ])
 
-    let isRegistered =
-        input.IsRegistered |> validateIsRegistered
-
-    let dateRegistered =
-        input.DateRegistered |> validateDateRegistered
-
-    let discount = input.Discount |> validateDiscount
-
-    let errors =
-        [ customerId |> getError
-          email |> getError
-          isEligible |> getError
-          isRegistered |> getError
-          dateRegistered |> getError
-          discount |> getError ]
-        |> List.concat
-
-    match errors with
-    | [] ->
-        Ok(
-            (create
-                (customerId |> getValue)
-                (email |> getValue)
-                (isEligible |> getValue)
-                (isRegistered |> getValue)
-                (dateRegistered |> getValue)
-                (discount |> getValue))
-        )
-    | _ -> Error errors
+        return create customerId email isEligible isRegistered dateRegistered discount
+    }
 
 
 type DataReader = string -> Result<string seq, exn>
@@ -197,5 +192,4 @@ let import (dataReader: DataReader) path =
 let main argv =
     Path.Combine(__SOURCE_DIRECTORY__, "resources", "customers.csv")
     |> import readFile
-
     0

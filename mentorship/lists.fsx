@@ -16,10 +16,10 @@ let reducedLst = lst2 |> List.reduce (+)
 
 let foldedLst = lst2 |> List.fold (*) 1
 
-let patritionedLst =
+let partitionedLst =
     lst2 |> List.partition (fun x -> x % 2 <> 0)
 
-let getRepeatedElemet (l: int list) =
+let getRepeatedElement (l: int list) =
     l
     |> List.groupBy id
     |> List.map (fun (id, l) -> id, List.length l)
