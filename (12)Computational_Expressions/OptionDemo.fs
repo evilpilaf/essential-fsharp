@@ -11,9 +11,9 @@ module Option =
         // Supports return!
         member _.ReturnFrom(x) = x
 
-    let option = OptionBuilder()
+    let option1 = OptionBuilder()
 
-module OptionDemo = 
+module OptionDemo =
 
     let multiply x y =
         x * y
@@ -37,7 +37,7 @@ module OptionDemo =
         |> Option.bind (fun x -> divide x y)
 
     let calculate'' x y =
-        option {
+        option1 {
             let! first = divide x y
             let second = multiply first x
             return! divide second y

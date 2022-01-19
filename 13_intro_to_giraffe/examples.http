@@ -1,0 +1,17 @@
+# @name createdTodo
+PUT https://localhost:5001/api/todo HTTP/2.0
+Content-Type: application/json
+
+{
+    "description": "My random string {{$timestamp}}"
+}
+
+###
+
+# @name getAll
+GET https://localhost:5001/api/todo HTTP/2.0
+
+@createdTodoId = {{createdTodo.response.body.$.id}}
+
+# @name lastCreated
+GET https://localhost:5001/api/todo/{{createdTodoId}} HTTP/2.0

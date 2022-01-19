@@ -5,9 +5,9 @@
     <RootNamespace>_12_Computational_Expressions</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AsyncDemo.fs" />
     <Compile Include="OptionDemo.fs" />
     <Compile Include="ResultDemo.fs" />
-    <Compile Include="AsyncDemo.fs" />
     <Compile Include="AsyncResultDemo.fs" />
     <Compile Include="AsyncResultDemoTests.fs" />
     <Compile Include="Program.fs" />

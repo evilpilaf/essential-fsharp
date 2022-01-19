@@ -5,7 +5,7 @@ module AsyncResultDemo =
     open System
     open FsToolkit.ErrorHandling
 
-    type AuthError = 
+    type AuthError =
         | UserBannedOrSuspended
 
     type TokenError =
@@ -19,7 +19,7 @@ module AsyncResultDemo =
 
     type AuthToken = AuthToken of Guid
 
-    type UserStatus = 
+    type UserStatus =
         | Active
         | Suspended
         | Banned
